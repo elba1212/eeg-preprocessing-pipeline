@@ -48,7 +48,9 @@ def run_safety_preflight(root: str | Path = ".") -> SafetyReport:
     status = _git(["status", "--short"], root)
     git_ok = status.returncode == 0
     if not git_ok:
-        warnings.append(status.stderr.strip() or "Git status failed; repository metadata may be invalid.")
+        warnings.append(
+            status.stderr.strip() or "Git status failed; repository metadata may be invalid."
+        )
 
     tracked_private_paths: tuple[str, ...] = ()
     if git_ok:
@@ -56,7 +58,10 @@ def run_safety_preflight(root: str | Path = ".") -> SafetyReport:
         tracked = [
             line
             for line in listed.stdout.splitlines()
-            if any(line.lower().endswith(pattern.replace("*", "").lower()) for pattern in PRIVATE_DATA_PATTERNS)
+            if any(
+                line.lower().endswith(pattern.replace("*", "").lower())
+                for pattern in PRIVATE_DATA_PATTERNS
+            )
         ]
         tracked_private_paths = tuple(sorted(tracked))
         if tracked_private_paths:

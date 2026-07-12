@@ -18,7 +18,7 @@ def _workspace_tmp() -> Path:
 def test_discover_eeg_files_finds_mff_directories() -> None:
     root = _workspace_tmp()
     try:
-        recording = root / "EL3001" / "EL3001_DIS1_20220208_100620.mff"
+        recording = root / "EL0001" / "EL0001_DIS1_20220208_100620.mff"
         recording.mkdir(parents=True)
 
         assert discover_eeg_files(root) == [recording]
@@ -27,9 +27,9 @@ def test_discover_eeg_files_finds_mff_directories() -> None:
 
 
 def test_inspect_recording_path_does_not_load_payload() -> None:
-    info = inspect_recording_path(Path("data/raw/EEG tasks/EL3001/EL3001_DIS1.mff"))
+    info = inspect_recording_path(Path("data/raw/demo/EL0001/EL0001_DIS1.mff"))
 
-    assert info["participant_id"] == "EL3001"
+    assert info["participant_id"] == "EL0001"
     assert info["run_label"] == "DIS1"
     assert info["format"] == "mff"
 

@@ -29,7 +29,9 @@ def discover_eeg_files(input_dir: str | Path) -> list[Path]:
     matches: list[Path] = []
     for path in root.rglob("*"):
         lowered = path.name.lower()
-        if path.is_dir() and any(lowered.endswith(suffix) for suffix in SUPPORTED_DIRECTORY_SUFFIXES):
+        if path.is_dir() and any(
+            lowered.endswith(suffix) for suffix in SUPPORTED_DIRECTORY_SUFFIXES
+        ):
             matches.append(path)
         elif path.is_file() and any(lowered.endswith(suffix) for suffix in SUPPORTED_FILE_SUFFIXES):
             matches.append(path)

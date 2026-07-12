@@ -17,10 +17,14 @@ dist/
 venv/
 env/
 ENV/
+virtualenv/
+.tox/
 
 # Jupyter
 .ipynb_checkpoints/
 *.nbconvert.ipynb
+*.executed.ipynb
+*executed*.ipynb
 
 # Editors and OS files
 .vscode/
@@ -31,6 +35,7 @@ Thumbs.db
 # Environment and secrets
 .env
 .env.*
+*.env
 
 # Raw EEG data and subject-level files
 *.edf
@@ -46,10 +51,18 @@ Thumbs.db
 *.gdf
 *.mff/
 *.mff
+*.raw
+subject.xml
+participants.tsv
+participants.json
+*_participants.*
+*_subjects.*
 
 # Local data directories and generated outputs
+data/
 data/**
 raw_data/
+private_data/
 processed_data/
 outputs/
 reports/**
@@ -76,6 +89,7 @@ logs/
 *.npy
 *.npz
 *.pkl
+*.pickle
 *.mat
 *.h5
 *.hdf5

@@ -26,7 +26,7 @@ def test_default_config_matches_planned_sampling() -> None:
 def test_find_private_data_detects_mff_without_reading_payload() -> None:
     root = _workspace_tmp()
     try:
-        recording = root / "data" / "raw" / "EL3001" / "EL3001_DIS1.mff"
+        recording = root / "data" / "raw" / "EL0001" / "EL0001_DIS1.mff"
         recording.mkdir(parents=True)
 
         assert find_private_data(root) == [recording]

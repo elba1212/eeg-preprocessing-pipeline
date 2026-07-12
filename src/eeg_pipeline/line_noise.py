@@ -1,26 +1,45 @@
-"""Line-noise diagnostics and optional notch filtering."""
+"""Line-noise filtering helpers."""
 
 from __future__ import annotations
 
 from typing import Any
 
+from eeg_pipeline.filtering import FirFilterConfig, NotchFilterConfig, filter_raw
+
 
 def notch_frequencies(base_frequency_hz: float = 50.0, harmonics: int = 1) -> list[float]:
-    """Return base line frequency and requested harmonics."""
+    """Return line frequency and requested harmonics."""
 
+    if base_frequency_hz <= 0:
+        raise ValueError("base_frequency_hz must be positive.")
+    if harmonics < 1:
+        raise ValueError("harmonics must be at least 1.")
     return [base_frequency_hz * index for index in range(1, harmonics + 1)]
 
 
 def apply_notch_filter(
     raw: Any,
     *,
-    frequency_hz: float = 50.0,
+    line_frequency_hz: float = 50.0,
     harmonics: int = 1,
-    enabled: bool = False,
+    fir_config: FirFilterConfig | None = None,
+    picks: str | list[str] = "eeg",
+    verbose: bool | str | int | None = None,
 ) -> Any:
-    """Optionally return a notch-filtered copy of raw data."""
+    """Create a copy with only line-noise notch filtering applied."""
 
-    filtered = raw.copy()
-    if not enabled:
-        return filtered
-    return filtered.notch_filter(freqs=notch_frequencies(frequency_hz, harmonics))
+    result = filter_raw(
+        raw,
+        high_pass_hz=None,
+        low_pass_hz=None,
+        copy_name="notch",
+        fir_config=fir_config,
+        notch_config=NotchFilterConfig(
+            enabled=True,
+            line_frequency_hz=line_frequency_hz,
+            harmonics=harmonics,
+        ),
+        picks=picks,
+        verbose=verbose,
+    )
+    return result.raw

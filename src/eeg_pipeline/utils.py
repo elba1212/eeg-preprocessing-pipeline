@@ -5,8 +5,6 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from eeg_pipeline.config import load_config_dict
 
 
