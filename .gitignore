@@ -1,0 +1,103 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+tests/_tmp/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Editors and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment and secrets
+.env
+.env.*
+
+# Raw EEG data and subject-level files
+*.edf
+*.bdf
+*.fif
+*.fif.gz
+*.set
+*.fdt
+*.vhdr
+*.vmrk
+*.eeg
+*.cnt
+*.gdf
+*.mff/
+*.mff
+
+# Local data directories and generated outputs
+data/**
+raw_data/
+processed_data/
+outputs/
+reports/**
+figures/**
+logs/
+
+# Keep only empty placeholder directories where useful
+!data/
+!data/raw/
+!data/raw/.gitkeep
+!data/processed/
+!data/processed/.gitkeep
+!data/demo/
+!data/demo/.gitkeep
+!reports/
+!reports/.gitkeep
+!figures/
+!figures/.gitkeep
+
+# Large and binary artifacts
+*.zip
+*.tar
+*.gz
+*.npy
+*.npz
+*.pkl
+*.mat
+*.h5
+*.hdf5
+
+# Common EEG recording payloads and acquisition-side artifacts
+*.bin
+*.mov
+*.mp4
+*.avi
+*.rtf
+*.plist
+*.lch
+
+# Legacy directory patterns kept for compatibility
+data/raw/*
+data/processed/*
+reports/*
+figures/*
+
+# Keep tracked placeholders for legacy patterns
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/demo/.gitkeep
+!reports/.gitkeep
+!figures/.gitkeep

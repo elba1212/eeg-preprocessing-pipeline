@@ -1,0 +1,75 @@
+# Default configuration for eeg-preprocessing-pipeline.
+# Values are placeholders and should be adapted to each dataset and protocol.
+
+data:
+  input_dir: data/raw
+  output_dir: data/processed
+  file_format: auto
+  preload: false
+
+sampling:
+  original_frequency_hz: 1000.0
+  target_frequency_hz: 250.0
+
+filtering:
+  analysis_high_pass_hz: 0.1
+  ica_high_pass_hz: 1.0
+  low_pass_hz: 40.0
+  method: fir
+
+line_noise:
+  enabled: false
+  frequency_hz: 50.0
+  harmonics: 1
+
+montage:
+  name: GSN-HydroCel-256
+  expected_eeg_channels: 256
+  on_missing: warn
+
+reference:
+  method: average
+  channels: []
+
+ica:
+  enabled: true
+  n_components: 0.99
+  method: fastica
+  random_state: 42
+  max_iterations: auto
+  classifier: mne-icalabel
+  artifact_labels:
+    - eye blink
+    - heart beat
+    - muscle artifact
+
+bad_channels:
+  enabled: true
+  method: pyprep
+  random_state: 42
+
+annotations:
+  enabled: true
+  zscore_threshold: 6.0
+  window_seconds: 2.0
+  min_bad_fraction: 0.25
+
+epoching:
+  enabled: false
+  tmin: -0.2
+  tmax: 0.8
+  baseline:
+    - null
+    - 0.0
+
+psd:
+  enabled: true
+  fmin_hz: 1.0
+  fmax_hz: 45.0
+  window_seconds: 4.0
+
+reports:
+  enabled: true
+  output_dir: reports
+  include_figures: true
+  format: html
