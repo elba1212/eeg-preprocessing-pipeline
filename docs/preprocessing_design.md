@@ -154,3 +154,18 @@ This repository implements dataset-level batch orchestration around recording-le
 - A dataset summary CSV must be produced for every batch run.
 - Participant and recording identifiers must be anonymized in batch keys by default.
 - The batch layer must not hardcode local paths or scientific preprocessing assumptions.
+
+## Implemented End-To-End Demo Specification
+
+This repository implements an end-to-end synthetic demo pipeline for public validation of package
+orchestration.
+
+- Demo data must be generated synthetically and must not include private EEG recordings.
+- The demo must create deterministic events, run the implemented preprocessing stages, save
+  provenance JSON, generate an HTML recording dashboard, and save at least one PSD figure.
+- Optional heavyweight stages such as pyPREP and ICA may be disabled in the public demo while
+  remaining available for real configured preprocessing.
+- The demo notebook must contain executable cells with cleared outputs so generated figures are not
+  committed.
+- The demo is an engineering validation path, not a replacement for study-specific validation of
+  EGI/MFF event streams, channel handling, and scientific thresholds.

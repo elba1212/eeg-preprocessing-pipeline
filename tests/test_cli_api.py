@@ -48,4 +48,23 @@ def test_cli_preprocess_recording_reports_unimplemented(capsys) -> None:
     captured = capsys.readouterr()
     payload = json.loads(captured.out)
     assert exit_code == 0
-    assert payload["implemented"] is False
+    assert payload["ok"] is False
+    assert payload["error"] == "file_not_found"
+
+
+def test_cli_run_demo_dispatches_pipeline(monkeypatch, capsys) -> None:
+    from eeg_pipeline.pipeline import Pipeline
+
+    def fake_run_demo(self, output_dir=None):
+        _ = self
+        return {"ok": True, "output_dir": str(output_dir)}
+
+    monkeypatch.setattr(Pipeline, "run_demo", fake_run_demo)
+
+    exit_code = main(["run-demo", "-o", "outputs/demo-test"])
+
+    captured = capsys.readouterr()
+    payload = json.loads(captured.out)
+    assert exit_code == 0
+    assert payload["ok"] is True
+    assert Path(payload["output_dir"]).as_posix() == "outputs/demo-test"

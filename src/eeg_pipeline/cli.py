@@ -44,6 +44,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     batch_summary_parser.add_argument("input_dir", type=Path)
 
+    demo_parser = subparsers.add_parser("run-demo", help="Run the synthetic demo pipeline.")
+    demo_parser.add_argument("-o", "--output-dir", type=Path, default=Path("outputs/demo"))
+
     run_parser = subparsers.add_parser("preprocess-recording", help="Run one recording.")
     run_parser.add_argument("input_path", type=Path)
     run_parser.add_argument("-o", "--output-dir", type=Path, default=Path("data/processed"))
@@ -67,11 +70,13 @@ def main(argv: list[str] | None = None) -> int:
         result = pipeline.preflight(args.root)
     elif args.command == "batch-summary":
         result = summarize_batch(args.input_dir)
+    elif args.command == "run-demo":
+        result = pipeline.run_demo(output_dir=args.output_dir)
     elif args.command == "preprocess-recording":
         try:
             result = pipeline.run(input_path=args.input_path, output_dir=args.output_dir)
-        except NotImplementedError as error:
-            result = {"implemented": False, "message": str(error)}
+        except FileNotFoundError as error:
+            result = {"ok": False, "error": "file_not_found", "message": str(error)}
     else:
         parser.error(f"Unknown command: {args.command}")
         return 2

@@ -126,7 +126,22 @@ Summarize a dataset by path inspection only:
 PYTHONPATH=src python -m eeg_pipeline.cli batch-summary data/raw
 ```
 
-Full preprocessing commands are intentionally not implemented yet.
+Run the public synthetic end-to-end demo:
+
+```bash
+PYTHONPATH=src python -m eeg_pipeline.cli run-demo -o outputs/demo
+```
+
+Run one real recording only after local data paths, event mappings, and optional dependencies are
+configured:
+
+```bash
+PYTHONPATH=src python -m eeg_pipeline.cli preprocess-recording path/to/recording.mff -o data/processed
+```
+
+The public demo disables optional pyPREP and ICA fitting so the pipeline can run without private
+data or heavyweight optional classifiers. Real study preprocessing should enable and validate those
+stages against the reviewed task protocol.
 
 ## Filtering Decisions
 
@@ -251,6 +266,17 @@ processor function.
 - Participant and recording identifiers are anonymized in batch keys by default.
 - The full scientific preprocessing pipeline is still intentionally separate from this batch
   orchestration layer.
+
+## End-To-End Demo
+
+The repository includes a runnable synthetic demo pipeline and notebook.
+
+- CLI: `python -m eeg_pipeline.cli run-demo -o outputs/demo`.
+- Notebook: `notebooks/demo.ipynb`.
+- Data: generated synthetic MNE `RawArray`, never private EEG.
+- Outputs: provenance JSON, HTML QC report, and PSD figure under ignored `outputs/`.
+- Scope: demonstrates orchestration, reporting, event handling, epoching, and output structure.
+- Limit: it is not a scientific substitute for validating the private EGI/MFF task protocol.
 
 ## Repository Structure
 

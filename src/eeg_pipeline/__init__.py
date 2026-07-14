@@ -2,6 +2,7 @@
 
 from eeg_pipeline.batch import BatchConfig, BatchReport, process_dataset, summarize_batch
 from eeg_pipeline.config import PipelineConfig, load_pipeline_config
+from eeg_pipeline.demo import create_synthetic_raw
 from eeg_pipeline.pipeline import Pipeline
 from eeg_pipeline.reports import generate_participant_dashboard, generate_recording_dashboard
 
@@ -13,6 +14,7 @@ __all__ = [
     "Pipeline",
     "PipelineConfig",
     "__version__",
+    "create_synthetic_raw",
     "generate_participant_dashboard",
     "generate_recording_dashboard",
     "load_pipeline_config",

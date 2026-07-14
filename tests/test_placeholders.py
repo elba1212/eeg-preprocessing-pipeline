@@ -4,14 +4,12 @@ import pytest
 
 from eeg_pipeline.metrics import compute_quality_metrics
 from eeg_pipeline.pipeline import Pipeline
-from eeg_pipeline.resampling import resample_raw
 
 
 @pytest.mark.parametrize(
     "call",
     [
         lambda: compute_quality_metrics(None),
-        lambda: resample_raw(None, 250.0),
     ],
 )
 def test_preprocessing_modules_are_placeholders(call) -> None:
@@ -22,7 +20,7 @@ def test_preprocessing_modules_are_placeholders(call) -> None:
 
 
 def test_pipeline_run_is_placeholder() -> None:
-    """The high-level preprocessing run should remain unimplemented."""
+    """The high-level preprocessing run should require an existing recording."""
 
-    with pytest.raises(NotImplementedError):
+    with pytest.raises(FileNotFoundError):
         Pipeline().run("data/raw/example.mff")
